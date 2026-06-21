@@ -41,7 +41,7 @@ final class SignInNotifierProvider
   }
 }
 
-String _$signInNotifierHash() => r'2432264a2e01ce09d0a4d44e0f63ff176ee95e7c';
+String _$signInNotifierHash() => r'cad26133cd843f92a122ecb05fd7e05c1fcfe2b4';
 
 abstract class _$SignInNotifier extends $Notifier<AsyncValue<void>> {
   AsyncValue<void> build();

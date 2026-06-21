@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'signup_notifier.dart';
+part of 'create_post_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
@@ -9,28 +9,28 @@ part of 'signup_notifier.dart';
 // GENERATED CODE - DO NOT MODIFY BY HAND
 // ignore_for_file: type=lint, type=warning
 
-@ProviderFor(SignupNotifier)
-final signupProvider = SignupNotifierProvider._();
+@ProviderFor(CreatePostNotifier)
+final createPostProvider = CreatePostNotifierProvider._();
 
-final class SignupNotifierProvider
-    extends $NotifierProvider<SignupNotifier, AsyncValue<void>> {
-  SignupNotifierProvider._()
+final class CreatePostNotifierProvider
+    extends $NotifierProvider<CreatePostNotifier, AsyncValue<void>> {
+  CreatePostNotifierProvider._()
     : super(
         from: null,
         argument: null,
         retry: null,
-        name: r'signupProvider',
+        name: r'createPostProvider',
         isAutoDispose: true,
         dependencies: null,
         $allTransitiveDependencies: null,
       );
 
   @override
-  String debugGetCreateSourceHash() => _$signupNotifierHash();
+  String debugGetCreateSourceHash() => _$createPostNotifierHash();
 
   @$internal
   @override
-  SignupNotifier create() => SignupNotifier();
+  CreatePostNotifier create() => CreatePostNotifier();
 
   /// {@macro riverpod.override_with_value}
   Override overrideWithValue(AsyncValue<void> value) {
@@ -41,9 +41,10 @@ final class SignupNotifierProvider
   }
 }
 
-String _$signupNotifierHash() => r'1ac2737ca16b7dd9c84edfb162c7fa12207b32a1';
+String _$createPostNotifierHash() =>
+    r'6a9b08acfad36556f5fb874d15a0dff3643aa85f';
 
-abstract class _$SignupNotifier extends $Notifier<AsyncValue<void>> {
+abstract class _$CreatePostNotifier extends $Notifier<AsyncValue<void>> {
   AsyncValue<void> build();
   @$mustCallSuper
   @override

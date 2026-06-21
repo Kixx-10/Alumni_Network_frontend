@@ -1,19 +1,16 @@
 import 'package:alumni_network/pages/messagePage.dart';
 import 'package:alumni_network/pages/networkPage.dart';
-import 'package:alumni_network/pages/profilePage.dart';
+import 'package:alumni_network/pages/profile_page.dart';
 import 'package:alumni_network/tab/home_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
-
 class _HomePageState extends State<HomePage> {
-
   int _currentIndex = 0;
     final List<Widget> _pages=[
     const HomeTab(),
@@ -59,7 +56,7 @@ class _HomePageState extends State<HomePage> {
         children: [
           Icon(
             icon,
-            color: isActive?const Color.fromARGB(255, 10, 5, 167):Colors.white,
+            color: isActive?const Color.fromARGB(255, 14, 9, 159):Colors.white,
             size: 27.sp,
           ),
           SizedBox(height: 4.h,),
