@@ -57,7 +57,7 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
         _pickedImages.clear();
         Navigator.pop(context); 
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("🎉 Post successfully uploaded!")),
+          const SnackBar(content: Text(" Post successfully uploaded!")),
         );
       }
     } else {
@@ -65,7 +65,7 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
         final postState = ref.read(createPostProvider);
         final errorMsg = postState.error?.toString() ?? "Failed to create post.";
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("❌ $errorMsg"), backgroundColor: Colors.red),
+          SnackBar(content: Text(" $errorMsg"), backgroundColor: Colors.red),
         );
       }
     }

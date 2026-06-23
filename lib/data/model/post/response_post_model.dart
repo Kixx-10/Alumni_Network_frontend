@@ -8,6 +8,7 @@ class ResponsePostModel {
   final DateTime createdDate;
   final String authorId;
   final String authorName;
+  final bool isLiked; 
 
   ResponsePostModel({
     required this.postId,
@@ -19,6 +20,7 @@ class ResponsePostModel {
     required this.createdDate,
     required this.authorId,
     required this.authorName,
+    this.isLiked = false, 
   });
 
   factory ResponsePostModel.fromJson(Map<String, dynamic> json) {
@@ -34,9 +36,10 @@ class ResponsePostModel {
           : DateTime.now(),
       authorId: json['authorId'] ?? '',
       authorName: json['authorName'] ?? 'Unknown Author',
+      isLiked: json['isLiked'] ?? false, 
     );
   }
-//need for offline to storage local storage
+
   Map<String, dynamic> toJson() {
     return {
       'postId': postId,
@@ -48,6 +51,34 @@ class ResponsePostModel {
       'createdDate': createdDate.toIso8601String(),
       'authorId': authorId,
       'authorName': authorName,
+      'isLiked': isLiked, 
     };
+  }
+
+  // to update riverpod state
+  ResponsePostModel copyWith({
+    String? postId,
+    String? content,
+    String? mediaUrls,
+    int? likeCount,
+    int? commentCount,
+    int? shareCount,
+    DateTime? createdDate,
+    String? authorId,
+    String? authorName,
+    bool? isLiked,
+  }) {
+    return ResponsePostModel(
+      postId: postId ?? this.postId,
+      content: content ?? this.content,
+      mediaUrls: mediaUrls ?? this.mediaUrls,
+      likeCount: likeCount ?? this.likeCount,
+      commentCount: commentCount ?? this.commentCount,
+      shareCount: shareCount ?? this.shareCount,
+      createdDate: createdDate ?? this.createdDate,
+      authorId: authorId ?? this.authorId,
+      authorName: authorName ?? this.authorName,
+      isLiked: isLiked ?? this.isLiked,
+    );
   }
 }
