@@ -5,4 +5,5 @@ class ApiEndPoints{
   static const uploadImages = "FileUpload/upload-multiple";
   static const createPost = "Post/CreatePost";
   static const fetchPost="Post/FetchAllPosts";
+  static const toggleLike="Like/toggle";
 }
