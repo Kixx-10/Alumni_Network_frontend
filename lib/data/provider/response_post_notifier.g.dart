@@ -35,7 +35,7 @@ final class ResponsePostNotifierProvider
 }
 
 String _$responsePostNotifierHash() =>
-    r'cf3cdf55d516bfbca674b508127043b2d03ef490';
+    r'aad0c687b20044d3b4d02869dabd6016b02b2b0b';
 
 abstract class _$ResponsePostNotifier
     extends $AsyncNotifier<List<ResponsePostModel>> {

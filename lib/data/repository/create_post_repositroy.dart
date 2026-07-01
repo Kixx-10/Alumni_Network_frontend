@@ -4,14 +4,11 @@ import 'package:alumni_network/core/constants/api_endpoints.dart';
 import 'package:alumni_network/core/network/api_client.dart';
 import 'package:alumni_network/data/model/post/create_post_model.dart'; 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
 
 class PostRepository {
   final ApiClient _apiClient;
 
   PostRepository(this._apiClient);
-
-
   Future<String?> uploadMultipleImages(List<File> images, String jwtToken) async {
     try {
     
@@ -38,10 +35,6 @@ class PostRepository {
       }
       return null;
     } on DioException catch (e) {
-      debugPrint("======== BACKEND RAW UPLOAD ERROR ========");
-      debugPrint("Status Code: ${e.response?.statusCode}");
-      debugPrint("Response Data: ${e.response?.data}");
-      debugPrint("==========================================");
       throw e.response?.data['message'] ?? "Something went wrong during image upload";
     } catch (e) {
       rethrow;
@@ -59,10 +52,6 @@ class PostRepository {
         throw Exception("Failed to create post on server");
       }
     } on DioException catch (e) {
-      debugPrint("======== BACKEND RAW CREATE POST ERROR ========");
-      debugPrint("Status Code: ${e.response?.statusCode}");
-      debugPrint("Response Data: ${e.response?.data}");
-      debugPrint("=============================================");
       throw e.response?.data['message'] ?? "Something went wrong during post creation";
     } catch (e) {
       rethrow;

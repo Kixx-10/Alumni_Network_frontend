@@ -1,4 +1,3 @@
-import 'dart:developer' as developer;
 import 'dart:io';
 import 'package:alumni_network/core/network/api_client.dart';
 import 'package:alumni_network/data/model/post/create_post_model.dart'; 
@@ -23,16 +22,13 @@ AsyncValue<void> build() {
   }) async {
     bool isSuccess = false;
     state = const AsyncLoading();
-
     state = await AsyncValue.guard(() async {
       String? finalMediaUrls;
-
       final String? token = await ref.read(tokenStorageProvider).getToken();
       if (token == null) {
         throw Exception("Authentication token not found. Please login again.");
       }
       if (pickedImages.isNotEmpty) {
-        developer.log('📸 Starting multi-image upload...', name: 'CREATE_POST_NOTIFIER');
        finalMediaUrls = await _repository.uploadMultipleImages(pickedImages, token);
       }
 
@@ -40,9 +36,7 @@ AsyncValue<void> build() {
         content: content,
         mediaUrls: finalMediaUrls,
       );
-
       await _repository.createPost(postModel, token);
-      developer.log('🎉 Post Created Successfully!', name: 'CREATE_POST_NOTIFIER');
       isSuccess = true;
     });
 

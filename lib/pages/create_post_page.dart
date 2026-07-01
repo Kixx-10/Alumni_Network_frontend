@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 import 'dart:io';
+import 'package:alumni_network/core/network/api_client.dart';
+import 'package:alumni_network/data/provider/response_profile_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart'; 
@@ -31,8 +33,6 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
       });
     }
   }
-
- 
   Future<void> _submitPostAction() async {
     final String postText = _postController.text.trim();
 
@@ -70,15 +70,25 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
       }
     }
   }
+  String _resolveAvatarUrl(String? rawUrl) {
+    if (rawUrl == null || rawUrl.trim().isEmpty) return '';
+    if (rawUrl.startsWith('http')) return rawUrl;
+    final String baseUrl = 'http://${ApiClient.ipAddress}';
+    return '$baseUrl$rawUrl';
+  }
 
   @override
   Widget build(BuildContext context) {
     final postState = ref.watch(createPostProvider);
-
+   final profileAsync = ref.watch(responseProfileProvider);
+        final String userName = profileAsync.value?.fullName ?? "Loading...";
+        final String? rawUrl = profileAsync.value?.avatarUrl;
+  final String resolvedUrl = (profileAsync.isLoading || rawUrl == null) 
+      ? '' 
+      : _resolveAvatarUrl(rawUrl);
     return GestureDetector(
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
-        backgroundColor: Colors.white,
         body: SafeArea(
           child: Stack( 
             children: [
@@ -97,7 +107,6 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
                           style: TextStyle(
                             fontSize: 18.sp,
                             fontWeight: FontWeight.w400,
-                            color: Colors.black,
                           ),
                         ),
                         Align(
@@ -106,7 +115,7 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
                             onPressed: postState.isLoading ? null : () => Navigator.pop(context),
                             constraints: const BoxConstraints(),
                             padding: EdgeInsets.zero,
-                            icon: Icon(Icons.close, size: 26.r, color: Colors.black),
+                            icon: Icon(Icons.close, size: 26.r),
                           ),
                         ),
                         Align(
@@ -116,7 +125,7 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
                             style: TextButton.styleFrom(
                               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                              foregroundColor: Colors.green,
+                              //foregroundColor: Colors.green,
                             ),
                             icon: Icon(Icons.check, size: 25.r),
                             label: Text("Post", style: TextStyle(fontSize: 15.sp)),
@@ -135,18 +144,17 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         CircleAvatar(
-                          radius: 24.r,
-                          backgroundColor: Colors.grey.shade200,
-                          backgroundImage: const AssetImage("assets/images/profile.jpg"),
+                          radius: 30.r,
+                          backgroundImage: resolvedUrl.isNotEmpty
+                               ? NetworkImage(resolvedUrl)
+                               : const AssetImage('assets/images/profile.jpg') as ImageProvider,
                         ),
                         SizedBox(width: 12.w),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              "User Name",
+                            Text(userName,
                               style: TextStyle(
-                                color: Colors.black,
                                 fontSize: 16.sp,
                                 fontWeight: FontWeight.bold,
                               ),
@@ -171,11 +179,11 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
                               maxLines: null,
                               enabled: !postState.isLoading, 
                               keyboardType: TextInputType.multiline,
-                              style: TextStyle(fontSize: 18.sp, color: Colors.black87),
+                              style: TextStyle(fontSize: 18.sp),
                               decoration: InputDecoration(
                                 hintText: "What's on your mind?",
                                 border: InputBorder.none,
-                                hintStyle: TextStyle(color: Colors.grey.shade500, fontSize: 18.sp),
+                                hintStyle: TextStyle(fontSize: 18.sp),
                               ),
                             ),
                           ),
@@ -246,7 +254,6 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
                             "Choose from gallery",
                             style: TextStyle(
                               fontSize: 15.sp,
-                              color: Colors.black87,
                               fontWeight: FontWeight.w500,
                             ),
                           ),
@@ -262,13 +269,13 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
                                 "${_pickedImages.length} selected",
                                 style: TextStyle(
                                   fontSize: 12.sp,
-                                  color: Colors.green.shade800,
+                                
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
                           SizedBox(width: 5.w),
-                          Icon(Icons.arrow_forward_ios, size: 14.r, color: Colors.grey),
+                          Icon(Icons.arrow_forward_ios, size: 14.r),
                         ],
                       ),
                     ),
@@ -276,7 +283,6 @@ class _CreatePostPageState extends ConsumerState<CreatePostPage> {
                 ],
               ),
               
-              // 🚀 Loading စခရင် Overlay ပြသခြင်း
               if (postState.isLoading)
                 Container(
                   // ignore: deprecated_member_use

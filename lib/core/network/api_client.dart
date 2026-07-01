@@ -1,6 +1,9 @@
 import 'package:dio/dio.dart';
 
 class ApiClient {
+  
+  //static const String ipAddress = "192.168.60.76:5143";
+  static const String ipAddress = "192.168.60.76:5143";
   static final ApiClient _instance = ApiClient._internal();
   factory ApiClient() => _instance;
 
@@ -9,9 +12,9 @@ class ApiClient {
   ApiClient._internal() {
     dio = Dio(
       BaseOptions(
-        baseUrl: "http://192.168.1.7:5143/api/",
-        connectTimeout: const Duration(seconds: 35),
-        receiveTimeout: const Duration(seconds: 35),
+        baseUrl: "http://$ipAddress/api/",
+        connectTimeout: const Duration(seconds: 50),
+        receiveTimeout: const Duration(seconds: 50),
       ),
     );
   }

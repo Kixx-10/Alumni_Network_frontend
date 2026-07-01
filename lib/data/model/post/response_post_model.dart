@@ -8,6 +8,7 @@ class ResponsePostModel {
   final DateTime createdDate;
   final String authorId;
   final String authorName;
+  final String authorAvatarUrl;
   final bool isLiked; 
 
   ResponsePostModel({
@@ -20,7 +21,9 @@ class ResponsePostModel {
     required this.createdDate,
     required this.authorId,
     required this.authorName,
+    required this.authorAvatarUrl,
     this.isLiked = false, 
+   
   });
 
   factory ResponsePostModel.fromJson(Map<String, dynamic> json) {
@@ -36,6 +39,7 @@ class ResponsePostModel {
           : DateTime.now(),
       authorId: json['authorId'] ?? '',
       authorName: json['authorName'] ?? 'Unknown Author',
+      authorAvatarUrl: json['authorAvatarUrl'],
       isLiked: json['isLiked'] ?? false, 
     );
   }
@@ -51,6 +55,7 @@ class ResponsePostModel {
       'createdDate': createdDate.toIso8601String(),
       'authorId': authorId,
       'authorName': authorName,
+      'authorAvatarUrl':authorAvatarUrl,
       'isLiked': isLiked, 
     };
   }
@@ -66,7 +71,9 @@ class ResponsePostModel {
     DateTime? createdDate,
     String? authorId,
     String? authorName,
+    String? authorAvatarUrl,
     bool? isLiked,
+
   }) {
     return ResponsePostModel(
       postId: postId ?? this.postId,
@@ -78,7 +85,9 @@ class ResponsePostModel {
       createdDate: createdDate ?? this.createdDate,
       authorId: authorId ?? this.authorId,
       authorName: authorName ?? this.authorName,
+      authorAvatarUrl:authorAvatarUrl ?? this.authorAvatarUrl,
       isLiked: isLiked ?? this.isLiked,
+       
     );
   }
 }

@@ -6,13 +6,14 @@ class CustomTextField extends StatelessWidget {
   final String label;
   final TextEditingController controller;
   final bool isPassword;
-
+  final bool readOnly;
   const CustomTextField({
     super.key,
     required this.icon,
     required this.label,
     required this.controller,
     this.isPassword = false, 
+    this.readOnly=false,
   });
 
   @override
@@ -22,6 +23,7 @@ class CustomTextField extends StatelessWidget {
       child: TextFormField(
         controller: controller,
         obscureText: isPassword,
+        readOnly: readOnly,
         style: const TextStyle(color: Colors.white),
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(

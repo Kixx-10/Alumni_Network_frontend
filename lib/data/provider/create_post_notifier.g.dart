@@ -42,7 +42,7 @@ final class CreatePostNotifierProvider
 }
 
 String _$createPostNotifierHash() =>
-    r'6a9b08acfad36556f5fb874d15a0dff3643aa85f';
+    r'd78b7682ae9b1b918cd4be0747f9a30afb7dbbcb';
 
 abstract class _$CreatePostNotifier extends $Notifier<AsyncValue<void>> {
   AsyncValue<void> build();

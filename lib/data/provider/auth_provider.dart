@@ -1,7 +1,7 @@
 // lib/data/provider/auth_provider.dart
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:alumni_network/core/network/token_storage.dart';
-import 'package:jwt_decoder/jwt_decoder.dart'; // 🚀 JWT Package ပါဝင်ရပါမယ်
+import 'package:jwt_decoder/jwt_decoder.dart'; 
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'auth_provider.g.dart'; 
@@ -26,9 +26,16 @@ Future<String> currentUserId(Ref ref) async {
     if (JwtDecoder.isExpired(token)) return '';
 
     Map<String, dynamic> decodedToken = JwtDecoder.decode(token);
-    
-    final userId = decodedToken['id'] ?? decodedToken['nameid'] ?? decodedToken['sub'] ?? '';
+    final userId = decodedToken['id'] ?? 
+                   decodedToken['Id'] ??
+                   decodedToken['userId'] ??
+                   decodedToken['UserId'] ??
+                   decodedToken['nameid'] ?? 
+                   decodedToken['sub'] ?? 
+                   decodedToken['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'] ??
+                   '';
     return userId.toString();
   }
+
   return '';
 }
